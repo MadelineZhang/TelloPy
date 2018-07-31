@@ -257,6 +257,18 @@ class Tello(object):
         log.info('counter_clockwise(val=%d)' % val)
         self.left_x = val / 100.0 * -1
 
+    # added by Maddy 07/30/18
+    def combined_motion(self, up, down, left, right, forward, back, cw, ccw):
+        print('called')
+        self.up(up)
+        self.down(down)
+        self.left(left)
+        self.right(right)
+        self.forward(forward)
+        self.backward(back)
+        self.clockwise(cw)
+        self.counter_clockwise(ccw)
+
     def flip_forward(self):
         """flip_forward tells the drone to perform a forwards flip"""
         log.info('flip_forward (cmd=0x%02x seq=0x%04x)' % (FLIP_CMD, self.pkt_seq_num))
