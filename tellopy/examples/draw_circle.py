@@ -1,5 +1,8 @@
 from time import sleep
-import tellopy
+# from .._internal.tello import Tello
+from tellopy import Tello
+
+# dig through the import line, need the Tello() in \_internal/tello.py
 
 
 def handler(event, sender, data, **args):
@@ -9,7 +12,7 @@ def handler(event, sender, data, **args):
 
 
 def test():
-    drone = tellopy.Tello()
+    drone = Tello()
     try:
         drone.subscribe(drone.EVENT_FLIGHT_DATA, handler)
 
@@ -17,8 +20,8 @@ def test():
         drone.wait_for_connection(60.0)
         drone.takeoff()
         sleep(5)
-        drone.combined_motion(50, 0, 50, 0, 0, 0, 0, 0)
-        sleep(5)
+        # drone.combined_motion(50, 0, 50, 0, 0, 0, 0, 0)
+        # sleep(5)
         drone.land()
         sleep(5)
     except Exception as ex:

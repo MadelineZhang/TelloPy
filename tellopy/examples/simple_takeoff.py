@@ -1,5 +1,6 @@
 from time import sleep
-import tellopy
+from tellopy import Tello
+# from .. import Tello
 
 
 def handler(event, sender, data, **args):
@@ -9,7 +10,7 @@ def handler(event, sender, data, **args):
 
 
 def test():
-    drone = tellopy.Tello()
+    drone = Tello()
     try:
         drone.subscribe(drone.EVENT_FLIGHT_DATA, handler)
 
