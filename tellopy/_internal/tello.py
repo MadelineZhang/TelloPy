@@ -3,6 +3,7 @@ import socket
 import time
 import datetime
 import sys
+from time import sleep
 
 from . import crc
 from . import logger
@@ -14,6 +15,7 @@ from . utils import *
 from . protocol import *
 from . import dispatcher
 
+print('Calling the right tello.py!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 log = logger.Logger('Tello')
 
 
@@ -145,6 +147,7 @@ class Tello(object):
 
     def takeoff(self):
         """Takeoff tells the drones to liftoff and start flying."""
+        print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
         log.info('takemoff (cmd=0x%02x seq=0x%04x)' % (TAKEOFF_CMD, self.pkt_seq_num))
         pkt = Packet(TAKEOFF_CMD)
         pkt.fixup()
@@ -258,16 +261,26 @@ class Tello(object):
         self.left_x = val / 100.0 * -1
 
     # added by Maddy 07/30/18
-    def combined_motion(self, up, down, left, right, forward, back, cw, ccw):
-        print('called')
-        self.up(up)
-        self.down(down)
-        self.left(left)
-        self.right(right)
-        self.forward(forward)
-        self.backward(back)
-        self.clockwise(cw)
-        self.counter_clockwise(ccw)
+    def combined_motion(self, up, down, left, right, forward, backward, cw, ccw):
+        print('called!!!!!!!!!!!!!!!!')
+        if up != 0 and down == 0:
+            self.left_y = up / 100.0
+        elif up == 0 and down != 0:
+            self.left_y = down / 100.0 * -1
+        if left != 0 and right ==0:
+            self.right_x = left / 100.0 * -1
+        elif left == 0 and right != 0:
+            self.right_x = right / 100.0
+        if forward != 0 and backward == 0:
+            self.right_y = forward / 100.0
+        elif forward ==0 and backward != 0:
+            self.right_y = backward / 100.0 * -1
+        if cw != 0 and ccw == 0:
+            self.left_x = cw / 100.0
+        elif cw == 0 and ccw != 0:
+            self.left_x = ccw / 100.0 * -1
+        else:
+            print('conflict')
 
     def flip_forward(self):
         """flip_forward tells the drone to perform a forwards flip"""
@@ -276,7 +289,7 @@ class Tello(object):
         pkt.add_byte(FlipFront)
         pkt.fixup()
         return self.send_packet(pkt)
-		
+
     def flip_back(self):
         """flip_back tells the drone to perform a backwards flip"""
         log.info('flip_back (cmd=0x%02x seq=0x%04x)' % (FLIP_CMD, self.pkt_seq_num))
@@ -284,7 +297,7 @@ class Tello(object):
         pkt.add_byte(FlipBack)
         pkt.fixup()
         return self.send_packet(pkt)
-		
+
     def flip_right(self):
         """flip_right tells the drone to perform a right flip"""
         log.info('flip_right (cmd=0x%02x seq=0x%04x)' % (FLIP_CMD, self.pkt_seq_num))
