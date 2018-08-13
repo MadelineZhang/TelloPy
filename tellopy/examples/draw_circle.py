@@ -1,5 +1,4 @@
 from time import sleep
-# from .._internal.tello import Tello
 from tellopy import Tello
 
 
@@ -13,14 +12,26 @@ def test():
     drone = Tello()
     try:
         drone.subscribe(drone.EVENT_FLIGHT_DATA, handler)
-
         drone.connect()
         drone.wait_for_connection(60.0)
         drone.takeoff()
         sleep(5)
-        # drone.combined_motion(up, down, left, right, forward, backward, cw, ccw)
+        drone.combined_motion(25, 0, 0, 0, 0, 0, 0, 0)
+        sleep(5)
+        # drone.down(10)
+        # sleep(5)
+        # combined_motion(up, down, left, right, forward, backward, cw, ccw)
+        drone.combined_motion(0, 10, 0, 0, 15, 0, 0, 50)
+        sleep(5)
+        drone.combined_motion(0, 10, 0, 0, 0, 15, 50, 0)
+        sleep(5)
         drone.combined_motion(0, 10, 0, 0, 20, 0, 0, 50)
-        # drone.combined_motion()
+        sleep(5)
+        drone.combined_motion(0, 10, 0, 0, 0, 25, 50, 0)
+        sleep(5)
+        drone.combined_motion(0, 10, 0, 0, 25, 0, 0, 50)
+        sleep(5)
+        drone.combined_motion(0, 10, 0, 0, 0, 25, 50, 0)
         sleep(5)
         drone.land()
         sleep(5)

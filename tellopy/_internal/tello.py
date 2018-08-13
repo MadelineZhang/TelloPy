@@ -23,7 +23,7 @@ class Tello(object):
     EVENT_CONNECTED = event.Event('connected')
     EVENT_WIFI = event.Event('wifi')
     EVENT_LIGHT = event.Event('light')
-    EVENT_FLIGHT_DATA = event.Event('fligt_data')
+    EVENT_FLIGHT_DATA = event.Event('flight_data')
     EVENT_LOG = event.Event('log')
     EVENT_TIME = event.Event('time')
     EVENT_VIDEO_FRAME = event.Event('video frame')
@@ -35,7 +35,7 @@ class Tello(object):
     __EVENT_TIMEOUT = event.Event('timeout')
     __EVENT_QUIT_REQ = event.Event('quit_req')
 
-    # for backward comaptibility
+    # for backward compatibility
     CONNECTED_EVENT = EVENT_CONNECTED
     WIFI_EVENT = EVENT_WIFI
     LIGHT_EVENT = EVENT_LIGHT
@@ -147,7 +147,6 @@ class Tello(object):
 
     def takeoff(self):
         """Takeoff tells the drones to liftoff and start flying."""
-        print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
         log.info('takemoff (cmd=0x%02x seq=0x%04x)' % (TAKEOFF_CMD, self.pkt_seq_num))
         pkt = Packet(TAKEOFF_CMD)
         pkt.fixup()
@@ -260,14 +259,15 @@ class Tello(object):
         log.info('counter_clockwise(val=%d)' % val)
         self.left_x = val / 100.0 * -1
 
-    # added by Maddy 07/30/18
+    # added by Maddy
     def combined_motion(self, up, down, left, right, forward, backward, cw, ccw):
         print('called!!!!!!!!!!!!!!!!')
         if up != 0 and down == 0:
             self.left_y = up / 100.0
         elif up == 0 and down != 0:
+            # log.info('down(val=%d)' % down)
             self.left_y = down / 100.0 * -1
-        if left != 0 and right ==0:
+        if left != 0 and right == 0:
             self.right_x = left / 100.0 * -1
         elif left == 0 and right != 0:
             self.right_x = right / 100.0
