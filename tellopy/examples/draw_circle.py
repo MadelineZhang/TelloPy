@@ -8,6 +8,40 @@ def handler(event, sender, data, **args):
         print(data)
 
 
+def test_case1(drone):
+    drone.combined_motion(25, 0, 0, 0, 0, 0, 0, 0)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 0, 15, 0, 0, 50)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 0, 0, 15, 50, 0)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 0, 20, 0, 0, 50)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 0, 0, 20, 50, 0)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 0, 25, 0, 0, 50)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 5, 0, 25, 50, 0)
+    sleep(5)
+
+
+def test_case2(drone):  # smaller arcs
+    drone.combined_motion(25, 0, 0, 0, 0, 0, 0, 0)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 0, 20, 0, 0, 30)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 0, 0, 20, 30, 0)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 3, 20, 0, 0, 30)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 3, 0, 20, 30, 0)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 5, 20, 0, 0, 30)
+    sleep(5)
+    drone.combined_motion(0, 10, 0, 5, 0, 20, 30, 0)
+    sleep(5)
+
+
 def test():
     drone = Tello()
     try:
@@ -16,23 +50,8 @@ def test():
         drone.wait_for_connection(60.0)
         drone.takeoff()
         sleep(5)
-        drone.combined_motion(25, 0, 0, 0, 0, 0, 0, 0)
-        sleep(5)
-        # drone.down(10)
-        # sleep(5)
+        test_case1(drone)
         # combined_motion(up, down, left, right, forward, backward, cw, ccw)
-        drone.combined_motion(0, 10, 0, 0, 15, 0, 0, 50)
-        sleep(5)
-        drone.combined_motion(0, 10, 0, 0, 0, 15, 50, 0)
-        sleep(5)
-        drone.combined_motion(0, 10, 0, 0, 20, 0, 0, 50)
-        sleep(5)
-        drone.combined_motion(0, 10, 0, 0, 0, 25, 50, 0)
-        sleep(5)
-        drone.combined_motion(0, 10, 0, 0, 25, 0, 0, 50)
-        sleep(5)
-        drone.combined_motion(0, 10, 0, 0, 0, 25, 50, 0)
-        sleep(5)
         drone.land()
         sleep(5)
     except Exception as ex:
