@@ -9,24 +9,24 @@ def handler(event, sender, data, **args):
 
 
 def test_case1(drone):
-    drone.combined_motion(25, 0, 0, 0, 0, 0, 0, 0)
+    drone.combined_motion(20, 0, 0, 0, 0, 0, 0, 0)
     sleep(5)
-    drone.combined_motion(0, 10, 0, 0, 15, 0, 0, 50)
+    drone.combined_motion(0, 5, 0, 0, 15, 0, 0, 50)
     sleep(5)
-    drone.combined_motion(0, 10, 0, 0, 0, 15, 50, 0)
+    drone.combined_motion(0, 5, 0, 0, 0, 15, 50, 0)
     sleep(5)
-    drone.combined_motion(0, 10, 0, 0, 20, 0, 0, 50)
+    drone.combined_motion(0, 5, 0, 0, 20, 0, 0, 50)
     sleep(5)
-    drone.combined_motion(0, 10, 0, 0, 0, 20, 50, 0)
+    drone.combined_motion(0, 5, 0, 0, 0, 20, 50, 0)
     sleep(5)
-    drone.combined_motion(0, 10, 0, 0, 25, 0, 0, 50)
+    drone.combined_motion(0, 5, 0, 0, 25, 0, 0, 50)
     sleep(5)
-    drone.combined_motion(0, 10, 0, 5, 0, 25, 50, 0)
+    drone.combined_motion(0, 5, 0, 0, 0, 25, 50, 0)
     sleep(5)
 
 
 def test_case2(drone):  # smaller arcs
-    drone.combined_motion(25, 0, 0, 0, 0, 0, 0, 0)
+    drone.combined_motion(20, 0, 0, 0, 0, 0, 0, 0)
     sleep(5)
     drone.combined_motion(0, 10, 0, 0, 20, 0, 0, 30)
     sleep(5)
